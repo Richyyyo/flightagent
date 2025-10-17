@@ -1,3 +1,4 @@
+/* Navbar  Styling */
 .header {
   display: flex;
   align-items: center;
@@ -15,8 +16,34 @@
 
 .airplane {
   font-size: 4em;
+  border: 2px solid #000000;
+  padding: 5px;
 }
 .action-btn {
   display: flex;
   gap: 20px;
+}
+
+/* Hero Styling */
+.hero {
+  margin: 10px 20px 0 20px;
+  padding: 15px 0;
+  border: 1px solid red;
+  height: 210px;
+}
+
+.hero-container,
+h2,
+p {
+  text-align: center;
+}
+
+.find-deals {
+  margin: 0 20px;
+  border: 2px solid gray;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  padding: 5%;
+  gap: 5px;
 }
