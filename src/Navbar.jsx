@@ -1,13 +1,16 @@
+import { BsFillAirplaneEnginesFill } from "react-icons/bs";
+
 export default function Navbar() {
   return (
     <>
       <div className="header">
-        <div>
+        <div className="logo">
+          <BsFillAirplaneEnginesFill className="airplane" />
           <h2>Flight Agent</h2>
         </div>
-        <div>
-          <h3>Sign In</h3>
-          <h3>Create Account</h3>
+        <div className="action-btn">
+          <button>Sign In</button>
+          <button>Create Account</button>
         </div>
       </div>
     </>
