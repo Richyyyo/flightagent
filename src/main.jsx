@@ -4,10 +4,12 @@ import "./index.css";
 import App from "./App.jsx";
 import Navbar from "./Navbar.jsx";
 import Hero from "./Hero.jsx";
+import InfoHolder from "./Info.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Navbar />
     <Hero />
+    <InfoHolder />
   </StrictMode>
 );
