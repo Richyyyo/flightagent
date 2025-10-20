@@ -18,7 +18,7 @@ function SearchFilter() {
     <>
       <div className="search-filter-container">
         <div className="filter-heading">
-          <AiFillSetting />
+          <AiFillSetting className="settings-icon" />
           <h2>Fine-tune Filters</h2>
         </div>
         <div className="filter-location-container">

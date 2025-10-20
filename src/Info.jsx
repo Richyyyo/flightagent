@@ -6,7 +6,7 @@ function Info({ icon: Icon, heading, subtext }) {
   return (
     <>
       <div className="info">
-        <Icon />
+        <Icon className="icon" />
         <div className="info-text">
           <h3>{heading}</h3>
           <p>{subtext}</p>
@@ -22,17 +22,17 @@ export default function InfoHolder() {
         <Info
           icon={BsFillShieldFill}
           heading="Payment Safety"
-          subtext="Card stored via Stripe, we only charge if you reply Yes"
+          subtext="Cards stored via Stripe. We only charge if you reply YES."
         />
         <Info
           icon={LuBadgeCheck}
-          heading="Payment Safety"
-          subtext="Card stored via Stripe, we only charge if you reply Yes"
+          heading="Clear Consent"
+          subtext="SMS opt-in with STOP/HELP. Quiet hours supported."
         />
         <Info
           icon={LuStar}
-          heading="Payment Safety"
-          subtext="Card stored via Stripe, we only charge if you reply Yes"
+          heading="Transparency"
+          subtext="Simple 'Why this price?' with a confidence range."
         />
       </div>
     </>
