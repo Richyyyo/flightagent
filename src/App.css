@@ -39,11 +39,65 @@ p {
 }
 
 .find-deals {
+  position: relative;
   margin: 0 20px;
   border: 2px solid gray;
   display: flex;
   flex-direction: column;
   border-radius: 5px;
   padding: 5%;
-  gap: 5px;
+  gap: 10px;
+  justify-content: center;
+}
+
+.deals-input {
+  padding: 2% 0% 2% 5%;
+}
+.search-logo {
+  position: absolute;
+  top: 97px;
+  left: 97px;
+  font-size: 1.5em;
+}
+
+.find-btn {
+  margin: 0 auto;
+  width: 20%;
+}
+
+.search-filter-container {
+  border: 3px solid gold;
+  border-radius: 5px;
+  margin: 0 20px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.filter-location-container {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.filter-date-container {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.from-input,
+.to-input,
+.depart-input,
+.return-input {
+  border: 1px solid black;
+  width: 650px;
+}
+
+.filter-btn {
+  margin: 0 auto;
+  width: 20%;
 }
