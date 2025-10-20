@@ -19,7 +19,7 @@ export default function Hero() {
         </h2>
         <p>
           Get Sms alerts when price drop. Book instantly with a simple reply. No
-          Apps, No Hassle!
+          Apps, No Hassle!!!
         </p>
       </div>
       <Search />
