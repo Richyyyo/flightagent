@@ -144,3 +144,10 @@ p {
 .info-text p {
   margin: 0;
 }
+
+@media (max-width: 428px) {
+  /* Navbar */
+  .action-btn {
+    display: none;
+  }
+}

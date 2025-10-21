@@ -5,11 +5,13 @@ import App from "./App.jsx";
 import Navbar from "./Navbar.jsx";
 import Hero from "./Hero.jsx";
 import InfoHolder from "./Info.jsx";
+import Footer from "./Footer.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Navbar />
     <Hero />
     <InfoHolder />
+    <Footer />
   </StrictMode>
 );
