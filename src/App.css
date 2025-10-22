@@ -163,12 +163,17 @@ p {
 @media (max-width: 430px) {
   /* Navbar */
   .header {
+    margin: 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
     background-color: #ffffff;
-    height: 60px;
+    height: 75px;
     padding: 2% 4%;
+    z-index: 1;
+    position: fixed;
+    top: 0;
+    width: 100%;
   }
 
   .logo {
@@ -191,6 +196,22 @@ p {
   .mobile {
     display: block;
     margin-right: 10px;
+  }
+
+  .mobile-btn {
+    text-decoration: none;
+    border: none;
+    background-color: #fff;
+    color: #000;
+  }
+
+  .mobile-list {
+    position: absolute;
+    top: 50px;
+    margin-top: 15px;
+    background-color: red;
+    width: 91%;
+    text-align: center;
   }
 
   /* Hero Styling */
@@ -227,7 +248,7 @@ p {
   .deals-input {
     padding: 2% 0% 2% 12%;
     font-size: 1em;
-    width: 90%;
+    width: 100%;
   }
   .search-logo {
     position: absolute;

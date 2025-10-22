@@ -1,12 +1,29 @@
 import { BsFillAirplaneEnginesFill } from "react-icons/bs";
 import { AiOutlineMenu } from "react-icons/ai";
+import { AiOutlineClose } from "react-icons/ai";
+import { useState } from "react";
 
 function MobileHamburger() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
     <>
       <div className="mobile">
-        <AiOutlineMenu />
+        <button onClick={toggleMenu} className="mobile-btn">
+          {!isMenuOpen ? <AiOutlineMenu /> : <AiOutlineClose />}
+        </button>
       </div>
+      {isMenuOpen && (
+        <div className="mobile-list">
+          <ul>
+            <li>Sign In</li>
+            <li>Create Account</li>
+          </ul>
+        </div>
+      )}
     </>
   );
 }
