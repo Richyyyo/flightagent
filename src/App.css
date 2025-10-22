@@ -1,4 +1,8 @@
 /* Navbar  Styling */
+
+* {
+  box-sizing: border-box;
+}
 .header {
   display: flex;
   align-items: center;
@@ -22,6 +26,11 @@
 .action-btn {
   display: flex;
   gap: 20px;
+}
+
+/* Mobile Hamburger */
+.mobile {
+  display: none;
 }
 
 /* Hero Styling */
@@ -77,6 +86,7 @@ p {
   flex-direction: column;
   gap: 20px;
   margin-bottom: 20px;
+  max-width: 100%;
 }
 
 .filter-heading {
@@ -94,6 +104,8 @@ p {
   gap: 20px;
   align-items: center;
   justify-content: space-between;
+
+  width: 100%;
 }
 
 .filter-date-container {
@@ -101,6 +113,8 @@ p {
   gap: 20px;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+  width: 100%;
 }
 
 .from-input,
@@ -108,7 +122,8 @@ p {
 .depart-input,
 .return-input {
   border: 1px solid black;
-  width: 650px;
+  width: 100%;
+  max-width: 300px;
   padding: 10px;
 }
 
@@ -171,6 +186,11 @@ p {
 
   .action-btn {
     display: none;
+  }
+
+  .mobile {
+    display: block;
+    margin-right: 10px;
   }
 
   /* Hero Styling */
@@ -298,5 +318,26 @@ p {
   .info-text p {
     margin: 0;
     text-align: left;
+  }
+}
+
+@media (max-width: 1024px) {
+  .filter-heading {
+    display: none;
+  }
+
+  .filter-location-container,
+  .filter-date-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .from-input,
+  .to-input,
+  .depart-input,
+  .return-input {
+    width: 100%;
+    max-width: 95%;
   }
 }

@@ -1,4 +1,15 @@
 import { BsFillAirplaneEnginesFill } from "react-icons/bs";
+import { AiOutlineMenu } from "react-icons/ai";
+
+function MobileHamburger() {
+  return (
+    <>
+      <div className="mobile">
+        <AiOutlineMenu />
+      </div>
+    </>
+  );
+}
 
 export default function Navbar() {
   return (
@@ -12,6 +23,7 @@ export default function Navbar() {
           <button>Sign In</button>
           <button>Create Account</button>
         </div>
+        <MobileHamburger />
       </div>
     </>
   );
