@@ -5,8 +5,11 @@ function Search() {
   return (
     <>
       <div className="find-deals">
-        <BsSearch className="search-logo" />
-        <input className="deals-input" type="text" placeholder="NYC to LAX" />
+        <div className="input-wrapper">
+          <BsSearch className="search-logo" />
+          <input className="deals-input" type="text" placeholder="NYC to LAX" />
+        </div>
+
         <button className="find-btn">Find Deals</button>
       </div>
     </>
