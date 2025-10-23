@@ -229,6 +229,7 @@ p {
   .hero {
     padding: 15px 20px;
     height: auto;
+    margin-top: 100px;
   }
 
   .hero-container,
