@@ -25,22 +25,22 @@ function SearchFilter() {
           <h2>Fine-tune Filters</h2>
         </div>
         <div className="filter-location-container">
-          <div>
+          <div className="input-group">
             <label htmlFor="">From</label> <br />
             <input className="from-input" type="text" placeholder="NYC" />
           </div>
-          <div>
+          <div className="input-group">
             <label htmlFor="">To</label> <br />
             <input className="to-input" type="text" placeholder="HTX" />
           </div>
         </div>
 
         <div className="filter-date-container">
-          <div>
+          <div className="input-group">
             <label htmlFor="">Depart</label> <br />
             <input className="depart-input" type="date" name="" id="" />
           </div>
-          <div>
+          <div className="input-group">
             <label htmlFor="">Return</label> <br />
             <input className="return-input" type="date" name="" id="" />
           </div>
