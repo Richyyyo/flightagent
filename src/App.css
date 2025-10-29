@@ -245,7 +245,7 @@ p {
   }
 
   .deals-input {
-    padding: 6px 6px 6px 32px;
+    padding: 6px 6px 6px 39px;
     margin-top: 5px;
     font-size: 1em;
     width: 98%;
@@ -254,6 +254,7 @@ p {
   .search-logo {
     top: 23px;
     left: 8px;
+    font-size: 1.2em;
   }
 
   .find-btn {
@@ -353,14 +354,6 @@ p {
 
   .deals-input {
     width: 99%;
-  }
-
-  .find-btn {
-    width: 21%;
-  }
-
-  .filter-btn {
-    width: 26%;
   }
 
   .info {
