@@ -133,6 +133,29 @@ p {
   gap: 10px;
 }
 
+/* Flights Section */
+.flights-section {
+  margin: 0 20px;
+}
+
+.flights-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.flight-card {
+  overflow: hidden;
+  border-radius: 12px;
+  height: 100%;
+}
+
+.flight-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
 /* Info section */
 .info-container {
   display: flex;

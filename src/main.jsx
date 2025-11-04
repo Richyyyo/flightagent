@@ -6,12 +6,15 @@ import Navbar from "./Navbar.jsx";
 import Hero from "./Hero.jsx";
 import InfoHolder from "./Info.jsx";
 import Footer from "./Footer.jsx";
+import FlightHolder from "./Flight.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Navbar />
     <Hero />
+    <FlightHolder />
     <InfoHolder />
+
     <Footer />
   </StrictMode>
 );
