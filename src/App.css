@@ -19,7 +19,7 @@
 }
 
 .airplane {
-  font-size: 4em;
+  font-size: 3em;
   border: 2px solid #000000;
   padding: 5px;
 }
@@ -133,7 +133,7 @@ p {
   gap: 10px;
 }
 
-/* Flights Section */
+/* Flights Styling */
 .flights-section {
   margin: 15px 20px;
 }
@@ -187,7 +187,7 @@ p {
   font-weight: bold;
 }
 
-/* Info section */
+/* Info Styling */
 .info-container {
   display: flex;
   flex-wrap: wrap;
@@ -215,9 +215,43 @@ p {
   font-size: 2em;
 }
 
+.info-text h3 {
+  font-size: 1.5em;
+}
+
 .info-text p {
   margin: 0;
   text-align: left;
+}
+
+@media (max-width: 1280px) {
+  .filter-location-container,
+  .filter-date-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .from-input,
+  .to-input,
+  .depart-input,
+  .return-input {
+    width: 100%;
+  }
+
+  .deals-input {
+    width: 99%;
+  }
+
+  /* Flight Styling */
+  .flights-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Info Styling*/
+  .info {
+    flex: 1 1 100%;
+  }
 }
 
 @media (max-width: 430px) {
@@ -356,7 +390,12 @@ p {
     width: 40%;
   }
 
-  /* Info section */
+  /* Flight Styling */
+  .flights-grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  /* Info Styling */
   .info-container {
     display: flex;
     margin: 0 20px;
@@ -388,29 +427,5 @@ p {
   .info-text p {
     margin: 0;
     text-align: left;
-  }
-}
-
-@media (max-width: 1280px) {
-  .filter-location-container,
-  .filter-date-container {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 10px;
-  }
-
-  .from-input,
-  .to-input,
-  .depart-input,
-  .return-input {
-    width: 100%;
-  }
-
-  .deals-input {
-    width: 99%;
-  }
-
-  .info {
-    flex: 1 1 100%;
   }
 }

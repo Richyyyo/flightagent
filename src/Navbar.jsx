@@ -15,15 +15,15 @@ function MobileHamburger() {
         <button onClick={toggleMenu} className="mobile-btn">
           {!isMenuOpen ? <AiOutlineMenu /> : <AiOutlineClose />}
         </button>
+        {isMenuOpen && (
+          <div className="mobile-list">
+            <ul>
+              <li>Sign In</li>
+              <li>Create Account</li>
+            </ul>
+          </div>
+        )}
       </div>
-      {isMenuOpen && (
-        <div className="mobile-list">
-          <ul>
-            <li>Sign In</li>
-            <li>Create Account</li>
-          </ul>
-        </div>
-      )}
     </>
   );
 }
