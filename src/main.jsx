@@ -1,20 +1,18 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./index.css";
-import App from "./App.jsx";
-import Navbar from "./Navbar.jsx";
-import Hero from "./Hero.jsx";
-import InfoHolder from "./Info.jsx";
-import Footer from "./Footer.jsx";
-import FlightHolder from "./Flight.jsx";
+import Layout from "./layout/Layout.jsx";
+import Home from "./pages/Home.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <Navbar />
-    <Hero />
-    <FlightHolder />
-    <InfoHolder />
-
-    <Footer />
+    <BrowserRouter>
+      <Layout>
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </Layout>
+    </BrowserRouter>
   </StrictMode>
 );

@@ -1,6 +1,6 @@
+import { NavLink } from "react-router-dom";
 import { BsFillAirplaneEnginesFill } from "react-icons/bs";
-import { AiOutlineMenu } from "react-icons/ai";
-import { AiOutlineClose } from "react-icons/ai";
+import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import { useState } from "react";
 
 function MobileHamburger() {
@@ -37,8 +37,12 @@ export default function Navbar() {
           <h2>Flight Agent</h2>
         </div>
         <div className="action-btn">
-          <button>Sign In</button>
-          <button>Create Account</button>
+          <NavLink to="https://www.google.com">
+            <button>Sign In</button>
+          </NavLink>
+          <NavLink to="">
+            <button>Create Account</button>
+          </NavLink>
         </div>
         <MobileHamburger />
       </div>

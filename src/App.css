@@ -297,16 +297,29 @@ p {
     border: none;
     background-color: #fff;
     color: #000;
+    transition: all 0.3s ease;
   }
 
   .mobile-list {
-    position: absolute;
+    position: fixed;
     top: 50px;
     left: 0;
     margin-top: 24px;
-    background-color: red;
     width: 100%;
     text-align: center;
+    background: linear-gradient(135deg, #4f46e5, #4338ca);
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    overflow: hidden;
+    z-index: 900;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  }
+
+  .mobile-list ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
 
   /* Hero Styling */
