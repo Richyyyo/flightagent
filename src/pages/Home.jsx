@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { BsFillShieldFill, BsSearch } from "react-icons/bs";
 import { LuBadgeCheck, LuStar } from "react-icons/lu";
 import { AiFillSetting } from "react-icons/ai";
@@ -11,7 +12,6 @@ function Search() {
           <BsSearch className="search-logo" />
           <input className="deals-input" type="text" placeholder="NYC to LAX" />
         </div>
-
         <button className="find-btn">Find Deals</button>
       </div>
     </>

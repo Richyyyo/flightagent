@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { BsFillAirplaneEnginesFill } from "react-icons/bs";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import { useState } from "react";
@@ -34,7 +34,9 @@ export default function Navbar() {
       <div className="header">
         <div className="logo">
           <BsFillAirplaneEnginesFill className="airplane" />
-          <h2>Flight Agent</h2>
+          <Link to="/">
+            <h2>Flight Agent</h2>
+          </Link>
         </div>
         <div className="action-btn">
           <NavLink to="https://www.google.com">
