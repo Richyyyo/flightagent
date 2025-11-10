@@ -12,7 +12,9 @@ function Search() {
           <BsSearch className="search-logo" />
           <input className="deals-input" type="text" placeholder="NYC to LAX" />
         </div>
-        <button className="find-btn">Find Deals</button>
+        <button className="find-btn">
+          <Link to="/deals"> Find Deals</Link>
+        </button>
       </div>
     </>
   );
@@ -48,9 +50,11 @@ function SearchFilter() {
           </div>
         </div>
         <button className="filter-btn">
-          {" "}
-          <BsSearch />
-          Search
+          <Link to="/">
+            {" "}
+            <BsSearch />
+            Search
+          </Link>
         </button>
       </div>
     </>

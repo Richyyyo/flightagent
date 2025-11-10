@@ -16,6 +16,18 @@
   box-sizing: border-box;
 }
 
+/* Flex container for full-height layout */
+.layout-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Main grows to fill space */
+.layout-main {
+  flex: 1;
+}
+
 a {
   font-weight: 500;
   color: #646cff;

@@ -224,7 +224,7 @@ p {
   text-align: left;
 }
 
-@media (max-width: 1280px) {
+@media only screen and (max-width: 1280px) {
   .filter-location-container,
   .filter-date-container {
     flex-direction: column;
@@ -254,7 +254,7 @@ p {
   }
 }
 
-@media (max-width: 430px) {
+@media only screen and (max-width: 480px) {
   /* Navbar */
   .header {
     margin: 0;
@@ -440,5 +440,10 @@ p {
   .info-text p {
     margin: 0;
     text-align: left;
+  }
+
+  /* Deals Styling */
+  .result-text {
+    margin-top: 70px;
   }
 }
