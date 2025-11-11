@@ -1,4 +1,5 @@
 import { StrictMode } from "react";
+import { Auth0Provider } from "@auth0/auth0-react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./app.css";
@@ -8,15 +9,21 @@ import Home from "./pages/Home.jsx";
 import Deals from "./pages/Deals.jsx";
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <BrowserRouter>
-      <Layout>
+  <Auth0Provider
+    domain="dev-vuf2b652285d7xfr.us.auth0.com"
+    clientId="KAZwWBdw7lHO5lFgTVX76fKhos6tmwOv"
+    authorizationParams={{ redirect_uri: window.location.origin }}
+  >
+    <StrictMode>
+      <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/deals" element={<Deals />} />
-          <Route path="*" element={<h2>404 - Not Found</h2>} />
+          <Route element={<Layout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/deals" element={<Deals />} />
+            <Route path="*" element={<h2>404 - Not Found</h2>} />
+          </Route>
         </Routes>
-      </Layout>
-    </BrowserRouter>
-  </StrictMode>
+      </BrowserRouter>
+    </StrictMode>
+  </Auth0Provider>
 );

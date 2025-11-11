@@ -2,6 +2,8 @@ import { NavLink, Link } from "react-router-dom";
 import { BsFillAirplaneEnginesFill } from "react-icons/bs";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import { useState } from "react";
+import LoginButton from "../components/LoginButton";
+import SignupButton from "../components/SignupButton";
 
 function MobileHamburger() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -18,8 +20,12 @@ function MobileHamburger() {
         {isMenuOpen && (
           <div className="mobile-list">
             <ul>
-              <li>Sign In</li>
-              <li>Create Account</li>
+              <li>
+                <LoginButton />
+              </li>
+              <li>
+                <SignupButton />
+              </li>
             </ul>
           </div>
         )}
@@ -39,12 +45,8 @@ export default function Navbar() {
           </Link>
         </div>
         <div className="action-btn">
-          <NavLink to="https://www.google.com">
-            <button>Sign In</button>
-          </NavLink>
-          <NavLink to="">
-            <button>Create Account</button>
-          </NavLink>
+          <LoginButton />
+          <SignupButton />
         </div>
         <MobileHamburger />
       </div>
