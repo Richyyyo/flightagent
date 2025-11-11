@@ -3,6 +3,7 @@
 * {
   box-sizing: border-box;
 }
+
 .header {
   display: flex;
   align-items: center;
@@ -38,7 +39,6 @@
   margin: 10px 20px 0 20px;
   padding: 15px 0;
   border: 1px solid red;
-  height: 210px;
   margin-bottom: 20px;
 }
 
@@ -50,8 +50,6 @@ p {
 
 /* Search Styling */
 .find-deals {
-  margin: 0 20px;
-  border: 2px solid gray;
   display: flex;
   flex-direction: column;
   border-radius: 5px;
@@ -79,6 +77,19 @@ p {
   font-size: 1.5em;
 }
 
+.input-group-row {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.input-group-row .input-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
 .find-btn {
   margin: 0 auto;
   width: 15%;
@@ -94,6 +105,23 @@ p {
   flex-direction: column;
   gap: 20px;
   margin-bottom: 20px;
+}
+
+.search-filter-container .input-group select {
+  height: 40px; /* same as your text/date inputs */
+  padding: 8px 12px; /* consistent inner spacing */
+  font-size: 1rem; /* same text size */
+  border: 1px solid #000; /* match your border */
+  border-radius: 4px; /* optional: rounded corners */
+  background-color: #fff;
+  width: 100%; /* full width in its container */
+  box-sizing: border-box;
+}
+
+/* Ensure label alignment */
+.search-filter-container .input-group label {
+  margin-bottom: 4px;
+  font-weight: 500;
 }
 
 .filter-heading {
@@ -255,6 +283,11 @@ p {
 }
 
 @media only screen and (max-width: 480px) {
+  h1,
+  h2 {
+    font-size: 1.3em;
+  }
+
   /* Navbar */
   .header {
     margin: 0;
@@ -361,6 +394,11 @@ p {
   .find-btn {
     margin: 0 auto;
     width: 40%;
+  }
+
+  .input-group-row {
+    flex-direction: column;
+    gap: 10px;
   }
 
   /* Search Filter Styling */
