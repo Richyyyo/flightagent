@@ -4,8 +4,12 @@ import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import { useState } from "react";
 import LoginButton from "../components/LoginButton";
 import SignupButton from "../components/SignupButton";
+import ProfileMenu from "../components/ProfileMenu";
+import { useAuth0 } from "@auth0/auth0-react";
+import { CgProfile } from "react-icons/cg";
+import LogoutButton from "../components/LogoutButton";
 
-function MobileHamburger() {
+function MobileHamburger({ children }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -19,14 +23,7 @@ function MobileHamburger() {
         </button>
         {isMenuOpen && (
           <div className="mobile-list">
-            <ul>
-              <li>
-                <LoginButton />
-              </li>
-              <li>
-                <SignupButton />
-              </li>
-            </ul>
+            <ul>{children}</ul>
           </div>
         )}
       </div>
@@ -35,6 +32,32 @@ function MobileHamburger() {
 }
 
 export default function Navbar() {
+  const { isAuthenticated, isLoading, user } = useAuth0();
+
+  if (isLoading) return null;
+
+  const mobileAuthItems = isAuthenticated ? (
+    <>
+      <li className="profile-item">
+        <div className="user-profile">
+          <CgProfile />
+          <span>{user?.name || user?.email}</span>
+        </div>
+      </li>
+      <li>
+        <LogoutButton />
+      </li>
+    </>
+  ) : (
+    <>
+      <li>
+        <LoginButton />
+      </li>
+      <li>
+        <SignupButton />
+      </li>
+    </>
+  );
   return (
     <>
       <div className="header">
@@ -44,11 +67,17 @@ export default function Navbar() {
             <h2>Flight Agent</h2>
           </Link>
         </div>
-        <div className="action-btn">
-          <LoginButton />
-          <SignupButton />
+        <div className="action-btn ">
+          {isAuthenticated ? (
+            <ProfileMenu />
+          ) : (
+            <>
+              <LoginButton />
+              <SignupButton />
+            </>
+          )}
         </div>
-        <MobileHamburger />
+        <MobileHamburger>{mobileAuthItems}</MobileHamburger>
       </div>
     </>
   );
