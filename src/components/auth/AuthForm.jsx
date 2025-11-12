@@ -25,12 +25,42 @@ export default function AuthForm({
     setLoading(true);
     setError("");
 
+    // --- VALIDATE ---
+    if (!email || !password) {
+      setError("Email and password are required");
+      setLoading(false);
+      return;
+    }
+
+    if (mode === "signup") {
+      if (!firstName || !lastName) {
+        setError("First and last name are required");
+        setLoading(false);
+        return;
+      }
+      if (password.length < 8) {
+        setError("Password must be 8+ characters");
+        setLoading(false);
+        return;
+      }
+      if (!/[a-zA-Z]/.test(password) || !/[0-9]/.test(password)) {
+        setError("Password must have a letter and a number");
+        setLoading(false);
+        return;
+      }
+    }
+
     const payload = {
       action: mode,
-      email,
+      email: email.trim(),
       password,
-      ...(mode === "signup" && { firstName, lastName }),
+      ...(mode === "signup" && {
+        firstName: firstName.trim(),
+        lastName: lastName.trim(),
+      }),
     };
+
+    console.log("Sending:", payload); // ← CHECK THIS!
 
     try {
       const res = await fetch("/api/auth", {
@@ -40,16 +70,15 @@ export default function AuthForm({
       });
 
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error);
+      if (!res.ok) throw new Error(data.error || "Failed");
 
-      onSuccess(data.id_token); // ← tell parent we’re logged in
+      onSuccess(data.id_token);
     } catch (err) {
       setError(err.message);
     } finally {
       setLoading(false);
     }
   };
-
   return (
     <form onSubmit={handleSubmit} className="auth0-lock-form">
       {mode === "login" && (
