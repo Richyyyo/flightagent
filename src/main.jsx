@@ -7,6 +7,7 @@ import "./index.css";
 import Layout from "./layout/Layout.jsx";
 import Home from "./pages/Home.jsx";
 import Deals from "./pages/Deals.jsx";
+import AuthRoute from "./components/auth/AuthRoute.jsx";
 
 createRoot(document.getElementById("root")).render(
   <Auth0Provider
@@ -22,6 +23,7 @@ createRoot(document.getElementById("root")).render(
             <Route path="/deals" element={<Deals />} />
             <Route path="*" element={<h2>404 - Not Found</h2>} />
           </Route>
+          <Route path="/auth" element={<AuthRoute />} />
         </Routes>
       </BrowserRouter>
     </StrictMode>

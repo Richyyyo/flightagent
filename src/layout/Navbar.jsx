@@ -1,6 +1,7 @@
 import { NavLink, Link } from "react-router-dom";
 import { BsFillAirplaneEnginesFill } from "react-icons/bs";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import LoginButton from "../components/LoginButton";
 import SignupButton from "../components/SignupButton";
@@ -33,6 +34,11 @@ function MobileHamburger({ children }) {
 
 export default function Navbar() {
   const { isAuthenticated, isLoading, user } = useAuth0();
+  const navigate = useNavigate();
+
+  const openAuth = (mode) => {
+    navigate(`/auth?mode=${mode}`);
+  };
 
   if (isLoading) return null;
 
@@ -51,10 +57,10 @@ export default function Navbar() {
   ) : (
     <>
       <li>
-        <LoginButton />
+        <LoginButton onClick={() => openAuth("login")} isInModal={false} />
       </li>
       <li>
-        <SignupButton />
+        <LoginButton onClick={() => openAuth("signup")} isInModal={false} />
       </li>
     </>
   );
@@ -72,8 +78,16 @@ export default function Navbar() {
             <ProfileMenu />
           ) : (
             <>
-              <LoginButton />
-              <SignupButton />
+              <LoginButton
+                loading={false}
+                onClick={() => openAuth("login")}
+                isInModal={false}
+              />
+              <SignupButton
+                loading={false}
+                onClick={() => openAuth("signup")}
+                isInModal={false}
+              />
             </>
           )}
         </div>
