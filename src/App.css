@@ -252,6 +252,29 @@ p {
   text-align: left;
 }
 
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+}
+.user-menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+.profile-icon {
+  color: #000;
+  font-size: 2em;
+}
+
+.profile-text {
+  font-size: 2em;
+  color: #000;
+  margin: 0;
+}
+
 @media only screen and (max-width: 1280px) {
   .filter-location-container,
   .filter-date-container {
