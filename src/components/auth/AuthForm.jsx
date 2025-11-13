@@ -1,6 +1,5 @@
 // src/components/auth/AuthForm.jsx
 import { useState } from "react";
-import { useAuth0 } from "@auth0/auth0-react";
 import LoginButton from "../LoginButton";
 import SignupButton from "../SignupButton";
 import GoogleButton from "./GoogleButton";
@@ -9,9 +8,9 @@ export default function AuthForm({
   mode,
   loading,
   setLoading,
+  onSubmit,
   onGoogle,
   switchTo,
-  onSuccess, // ← NEW: receives JWT
 }) {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
@@ -25,7 +24,6 @@ export default function AuthForm({
     setLoading(true);
     setError("");
 
-    // --- VALIDATE ---
     if (!email || !password) {
       setError("Email and password are required");
       setLoading(false);
@@ -50,8 +48,7 @@ export default function AuthForm({
       }
     }
 
-    const payload = {
-      action: mode,
+    const formData = {
       email: email.trim(),
       password,
       ...(mode === "signup" && {
@@ -60,25 +57,15 @@ export default function AuthForm({
       }),
     };
 
-    console.log("Sending:", payload); // ← CHECK THIS!
-
     try {
-      const res = await fetch("/api/auth", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Failed");
-
-      onSuccess(data.id_token);
+      await onSubmit(formData);
     } catch (err) {
-      setError(err.message);
+      setError(err.message || "Failed");
     } finally {
       setLoading(false);
     }
   };
+
   return (
     <form onSubmit={handleSubmit} className="auth0-lock-form">
       {mode === "login" && (
@@ -101,7 +88,7 @@ export default function AuthForm({
           <div className="auth0-lock-input">
             <label>Password</label>
             <div className="auth0-lock-input-field">
-              <span className="auth0-lock-input-icon">🔒</span>
+              <span className="auth0-lock-input-icon">🔐</span>
               <input
                 type={showPassword ? "text" : "password"}
                 placeholder="your password"
@@ -115,14 +102,10 @@ export default function AuthForm({
                 className="auth0-lock-password-toggle"
                 onClick={() => setShowPassword(!showPassword)}
               >
-                {showPassword ? "🙈" : "👁"}
+                {showPassword ? "Hide" : "Show"}
               </button>
             </div>
           </div>
-
-          <button type="button" className="auth0-lock-forgot">
-            Don't remember your password?
-          </button>
 
           <LoginButton loading={loading} isInModal={true} />
 
@@ -145,7 +128,6 @@ export default function AuthForm({
 
       {mode === "signup" && (
         <>
-          {/* Similar inputs for signup with First Name */}
           <div className="auth0-lock-input">
             <label>First Name</label>
             <div className="auth0-lock-input-field">
@@ -191,7 +173,7 @@ export default function AuthForm({
           <div className="auth0-lock-input">
             <label>Password</label>
             <div className="auth0-lock-input-field">
-              <span className="auth0-lock-input-icon">🔒</span>
+              <span className="auth0-lock-input-icon">🔐</span>
               <input
                 type={showPassword ? "text" : "password"}
                 placeholder="your password"
@@ -205,13 +187,15 @@ export default function AuthForm({
                 className="auth0-lock-password-toggle"
                 onClick={() => setShowPassword(!showPassword)}
               >
-                {showPassword ? "🙈" : "👁"}
+                {showPassword ? "🙈" : "👁️"}
               </button>
             </div>
           </div>
-          {/* Email and Password same as login */}
+
           <SignupButton loading={loading} isInModal={true} />
+
           <div className="auth0-lock-or-divider">or</div>
+
           <GoogleButton
             loading={loading}
             onClick={onGoogle}
@@ -226,6 +210,8 @@ export default function AuthForm({
           </div>
         </>
       )}
+
+      {error && <div className="auth0-lock-error">{error}</div>}
     </form>
   );
 }

@@ -11,9 +11,11 @@ import AuthRoute from "./components/auth/AuthRoute.jsx";
 
 createRoot(document.getElementById("root")).render(
   <Auth0Provider
-    domain="dev-vuf2b652285d7xfr.us.auth0.com"
-    clientId="KAZwWBdw7lHO5lFgTVX76fKhos6tmwOv"
+    domain={import.meta.env.VITE_AUTH0_DOMAIN}
+    clientId={import.meta.env.VITE_AUTH0_CLIENT_ID}
     authorizationParams={{ redirect_uri: window.location.origin }}
+    cacheLocation="localstorage"
+    useRefreshTokens={true}
   >
     <StrictMode>
       <BrowserRouter>

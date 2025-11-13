@@ -1,5 +1,4 @@
-// src/components/auth/AuthPage.jsx
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import AuthForm from "./AuthForm";
@@ -9,7 +8,8 @@ export default function AuthPage() {
   const [searchParams] = useSearchParams();
   const mode = searchParams.get("mode") || "login";
   const [loading, setLoading] = useState(false);
-  const { loginWithRedirect } = useAuth0();
+  const { loginWithRedirect, handleRedirectCallback, isAuthenticated } =
+    useAuth0();
   const navigate = useNavigate();
 
   const handleGoogle = () => {
@@ -18,15 +18,57 @@ export default function AuthPage() {
     });
   };
 
-  const handleSuccess = (id_token) => {
-    localStorage.setItem("auth0.id_token", id_token);
-    window.location.reload(); // Auth0 SDK will detect token
+  const handleSubmit = async (formData) => {
+    setLoading(true);
+
+    try {
+      const res = await fetch("/api/auth", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: mode,
+          email: formData.email,
+          password: formData.password,
+          ...(mode === "signup" && {
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+          }),
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+
+      // 1. Build fake callback URL
+      const state = encodeURIComponent(
+        JSON.stringify({ appState: { target: "/" } })
+      );
+      const fakeCallbackUrl = `${window.location.origin}/?id_token=${data.id_token}&access_token=&expires_in=86400&token_type=Bearer&state=${state}`;
+
+      // 2. Call handleRedirectCallback() ← THIS SAVES THE TOKEN
+      await handleRedirectCallback(fakeCallbackUrl);
+
+      alert(mode === "signup" ? "Account created!" : "Signed in!");
+      navigate("/");
+    } catch (err) {
+      alert("Error: " + err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const switchTo = (newMode) => {
     navigate(`/auth?mode=${newMode}`, { replace: true });
   };
 
+  const close = () => {
+    navigate("/");
+  };
+
+  if (isAuthenticated) {
+    navigate("/");
+    return null;
+  }
   return (
     <div className="auth0-lock-overlay">
       <div className="auth0-lock-container">
@@ -37,7 +79,7 @@ export default function AuthPage() {
               <h2>Flight Agent</h2>
             </div>
             <button className="auth0-lock-close" onClick={close}>
-              ×
+              ❌
             </button>
           </div>
 
@@ -62,9 +104,9 @@ export default function AuthPage() {
               loading={loading}
               setLoading={setLoading}
               onGoogle={handleGoogle}
+              onSubmit={handleSubmit}
               switchTo={switchTo}
               isInModal={false}
-              onSuccess={handleSuccess}
             />
           </div>
         </div>
