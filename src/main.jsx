@@ -9,6 +9,14 @@ import Home from "./pages/Home.jsx";
 import Deals from "./pages/Deals.jsx";
 import AuthRoute from "./components/auth/AuthRoute.jsx";
 
+const onRedirectCallback = (appState) => {
+  window.history.replaceState(
+    {},
+    document.title,
+    appState?.returnTo || window.location.pathname
+  );
+};
+
 createRoot(document.getElementById("root")).render(
   <Auth0Provider
     domain={import.meta.env.VITE_AUTH0_DOMAIN}
@@ -16,6 +24,7 @@ createRoot(document.getElementById("root")).render(
     authorizationParams={{ redirect_uri: window.location.origin }}
     cacheLocation="localstorage"
     useRefreshTokens={true}
+    onRedirectCallback={onRedirectCallback}
   >
     <StrictMode>
       <BrowserRouter>

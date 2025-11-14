@@ -2,7 +2,7 @@ import { NavLink, Link } from "react-router-dom";
 import { BsFillAirplaneEnginesFill } from "react-icons/bs";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import LoginButton from "../components/LoginButton";
 import SignupButton from "../components/SignupButton";
 import ProfileMenu from "../components/ProfileMenu";
@@ -12,9 +12,7 @@ import LogoutButton from "../components/LogoutButton";
 
 function MobileHamburger({ children }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   return (
     <>
@@ -33,14 +31,24 @@ function MobileHamburger({ children }) {
 }
 
 export default function Navbar() {
-  const { isAuthenticated, isLoading, user } = useAuth0();
+  const { isAuthenticated, isLoading, user, getAccessTokenSilently } =
+    useAuth0();
   const navigate = useNavigate();
+
+  // Only try to get token if authenticated
+  useEffect(() => {
+    if (!isLoading && isAuthenticated) {
+      getAccessTokenSilently().catch(() => {});
+    }
+  }, [isLoading, isAuthenticated, getAccessTokenSilently]);
 
   const openAuth = (mode) => {
     navigate(`/auth?mode=${mode}`);
   };
 
-  if (isLoading) return null;
+  if (isLoading) {
+    return <div className="header">Loading...</div>;
+  }
 
   const mobileAuthItems = isAuthenticated ? (
     <>
@@ -57,42 +65,35 @@ export default function Navbar() {
   ) : (
     <>
       <li>
-        <LoginButton onClick={() => openAuth("login")} isInModal={false} />
+        <LoginButton onClick={() => openAuth("login")} />
       </li>
       <li>
-        <LoginButton onClick={() => openAuth("signup")} isInModal={false} />
+        <SignupButton onClick={() => openAuth("signup")} />
       </li>
     </>
   );
+
   return (
-    <>
-      <div className="header">
-        <div className="logo">
-          <BsFillAirplaneEnginesFill className="airplane" />
-          <Link to="/">
-            <h2>Flight Agent</h2>
-          </Link>
-        </div>
-        <div className="action-btn ">
-          {isAuthenticated ? (
-            <ProfileMenu />
-          ) : (
-            <>
-              <LoginButton
-                loading={false}
-                onClick={() => openAuth("login")}
-                isInModal={false}
-              />
-              <SignupButton
-                loading={false}
-                onClick={() => openAuth("signup")}
-                isInModal={false}
-              />
-            </>
-          )}
-        </div>
-        <MobileHamburger>{mobileAuthItems}</MobileHamburger>
+    <div className="header">
+      <div className="logo">
+        <BsFillAirplaneEnginesFill className="airplane" />
+        <Link to="/">
+          <h2>Flight Agent</h2>
+        </Link>
       </div>
-    </>
+
+      <div className="action-btn">
+        {isAuthenticated && user ? (
+          <ProfileMenu />
+        ) : (
+          <>
+            <LoginButton onClick={() => openAuth("login")} />
+            <SignupButton onClick={() => openAuth("signup")} />
+          </>
+        )}
+      </div>
+
+      <MobileHamburger>{mobileAuthItems}</MobileHamburger>
+    </div>
   );
 }

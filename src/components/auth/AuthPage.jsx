@@ -1,3 +1,4 @@
+// src/components/auth/AuthPage.jsx
 import { useState, useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -8,10 +9,26 @@ export default function AuthPage() {
   const [searchParams] = useSearchParams();
   const mode = searchParams.get("mode") || "login";
   const [loading, setLoading] = useState(false);
-  const { loginWithRedirect, handleRedirectCallback, isAuthenticated } =
-    useAuth0();
+
+  const {
+    loginWithRedirect, // for Google
+    getAccessTokenSilently,
+    isAuthenticated,
+    isLoading: auth0Loading,
+  } = useAuth0();
+
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (!auth0Loading && isAuthenticated) {
+      navigate("/", { replace: true });
+    }
+  }, [isAuthenticated, auth0Loading, navigate]);
+
+  if (auth0Loading)
+    return <div className="auth0-lock-overlay">Initializing…</div>;
+
+  // Google (needs redirect)
   const handleGoogle = () => {
     loginWithRedirect({
       authorizationParams: { connection: "google-oauth2" },
@@ -20,36 +37,72 @@ export default function AuthPage() {
 
   const handleSubmit = async (formData) => {
     setLoading(true);
-
     try {
-      const res = await fetch("/api/auth", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          action: mode,
-          email: formData.email,
-          password: formData.password,
-          ...(mode === "signup" && {
+      // 1. SIGNUP
+      if (mode === "signup") {
+        const res = await fetch("/api/auth", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            action: "signup",
+            email: formData.email,
+            password: formData.password,
             firstName: formData.firstName,
             lastName: formData.lastName,
           }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error);
+      }
+
+      // 2. LOGIN
+      const loginRes = await fetch("/api/auth", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "login",
+          email: formData.email,
+          password: formData.password,
         }),
       });
 
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error);
+      const loginData = await loginRes.json();
+      if (!loginRes.ok) throw new Error(loginData.error);
 
-      // 1. Build fake callback URL
-      const state = encodeURIComponent(
-        JSON.stringify({ appState: { target: "/" } })
+      // 3. STORE TOKEN CORRECTLY
+      const domain = import.meta.env.VITE_AUTH0_DOMAIN;
+      const clientId = import.meta.env.VITE_AUTH0_CLIENT_ID;
+      const key = `@@auth0spajs@@::${clientId}::@@auth0spajs@@::${domain}::openid profile email`;
+
+      localStorage.setItem(
+        key,
+        JSON.stringify({
+          body: {
+            credentials: {
+              id_token: loginData.id_token,
+              access_token: loginData.id_token,
+              token_type: "Bearer",
+              expires_in: 86400,
+            },
+            client_id: clientId,
+            scope: "openid profile email",
+            audience: "",
+            decodedToken: {
+              user: {
+                email: formData.email,
+                name: `${formData.firstName || ""} ${
+                  formData.lastName || ""
+                }`.trim(),
+                picture: null,
+              },
+            },
+          },
+          expiresAt: Date.now() + 86400 * 1000,
+        })
       );
-      const fakeCallbackUrl = `${window.location.origin}/?id_token=${data.id_token}&access_token=&expires_in=86400&token_type=Bearer&state=${state}`;
 
-      // 2. Call handleRedirectCallback() ← THIS SAVES THE TOKEN
-      await handleRedirectCallback(fakeCallbackUrl);
-
-      alert(mode === "signup" ? "Account created!" : "Signed in!");
-      navigate("/");
+      // 4. FULL RELOAD TO APPLY SESSION
+      window.location.href = "/";
     } catch (err) {
       alert("Error: " + err.message);
     } finally {
@@ -57,18 +110,10 @@ export default function AuthPage() {
     }
   };
 
-  const switchTo = (newMode) => {
+  const switchTo = (newMode) =>
     navigate(`/auth?mode=${newMode}`, { replace: true });
-  };
+  const close = () => navigate("/");
 
-  const close = () => {
-    navigate("/");
-  };
-
-  if (isAuthenticated) {
-    navigate("/");
-    return null;
-  }
   return (
     <div className="auth0-lock-overlay">
       <div className="auth0-lock-container">

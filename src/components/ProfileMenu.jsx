@@ -3,12 +3,15 @@ import { CgProfile } from "react-icons/cg";
 import LogoutButton from "./LogoutButton";
 
 export default function ProfileMenu() {
-  const { user } = useAuth0();
+  const { user, isAuthenticated } = useAuth0();
+
+  if (!isAuthenticated || !user) return null;
+
   return (
     <div className="user-menu">
       <div className="user-profile">
         <CgProfile className="profile-icon" />
-        <p className="profile-text">{user?.name}</p>
+        <p className="profile-text">{user?.name || user?.email}</p>
       </div>
       <LogoutButton />
     </div>
