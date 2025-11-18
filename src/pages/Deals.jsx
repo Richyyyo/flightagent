@@ -1,3 +1,6 @@
+import { useState } from "react";
+import { IoIosArrowDropdown, IoIosArrowDropup } from "react-icons/io";
+
 const mockup_results = [
   {
     image:
@@ -65,24 +68,51 @@ function FlightBox({
   price,
   alt,
 }) {
+  const [dropDown, setDropDown] = useState(false);
+  const toggleDropDown = () => setDropDown(!dropDown);
   return (
     <>
-      <div className="result-container">
-        <img src={image} alt={alt} />
-        <ul className="result-details">
-          <div>
-            <li>{time}</li> <span>{airline}</span>
+      <div className="flight-box-wrapper">
+        {" "}
+        {/* New wrapper for clean dropdown */}
+        <div className="result-container">
+          <img src={image} alt={alt} className="airline-logo" />
+
+          <ul className="result-details">
+            <li>
+              <div className="time">{time}</div>
+              <div className="airline">{airline}</div>
+            </li>
+            <li>
+              <div>{flightduration}</div>
+              <div>{location}</div>
+            </li>
+            <li>
+              <div>{stops}</div>
+              {layoverhours && <div>{layoverhours}</div>}
+            </li>
+            <li className="price">{price}</li>
+          </ul>
+
+          <button onClick={toggleDropDown} className="dropdown-btn">
+            {dropDown ? <IoIosArrowDropup /> : <IoIosArrowDropdown />}
+          </button>
+        </div>
+        {/* Dropdown Content - appears BELOW the main bar */}
+        {dropDown && (
+          <div className="dropdown-content">
+            <div className="dropdown-inner">
+              {/* Put your detailed flight info here */}
+              <p>Flight details, baggage info, seat selection, etc.</p>
+              <ul>
+                <li>Direct flight • Economy</li>
+                <li>Baggage: 1 personal item + 1 carry-on</li>
+                <li>Wi-Fi available • Power outlets</li>
+              </ul>
+              <button className="select-btn">Select this flight</button>
+            </div>
           </div>
-          <div>
-            <li>{flightduration}</li> <span>{location}</span>
-          </div>
-          <div>
-            <li>{stops}</li> <span>{layoverhours}</span>
-          </div>
-          <div>
-            <li>{price}</li>
-          </div>
-        </ul>
+        )}
       </div>
     </>
   );

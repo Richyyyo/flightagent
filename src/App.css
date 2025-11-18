@@ -561,6 +561,15 @@ p {
 }
 
 /* Result Styling */
+
+.flight-box-wrapper {
+  width: 100%;
+  margin-bottom: 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  overflow: hidden; /* Important for clean look */
+  background: white;
+}
 .result-container {
   display: flex;
   align-items: center;
@@ -580,6 +589,17 @@ p {
   display: flex;
   list-style-type: none;
   gap: 120px;
+}
+
+.dropdown-btn {
+  background-color: transparent;
+  font-size: 2em;
+}
+
+.dropdown-inner {
+  text-align: center;
+  width: 50%;
+  margin: 0 auto;
 }
 
 @media only screen and (max-width: 1280px) {
