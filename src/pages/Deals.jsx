@@ -137,9 +137,8 @@ function FlightBox({
             <li>
               <div>{stops === "Nonstop" ? "Nonstop" : stops}</div>
             </li>
-            <li className="price">{price}</li>
           </ul>
-
+          <p className="price">{price}</p>
           <button
             onClick={toggleDropDown}
             className="dropdown-btn"
