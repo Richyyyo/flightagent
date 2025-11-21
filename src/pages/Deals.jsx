@@ -131,11 +131,13 @@ function FlightBox({
               <div className="airline">{airline}</div>
             </li>
             <li>
-              <div>{flightduration}</div>
-              <div>{location}</div>
+              <div className="flight-duration">{flightduration}</div>
+              <div className="airport-name">{location}</div>
             </li>
             <li>
-              <div>{stops === "Nonstop" ? "Nonstop" : stops}</div>
+              <div className="stops">
+                {stops === "Nonstop" ? "Nonstop" : stops}
+              </div>
             </li>
           </ul>
           <p className="price">{price}</p>

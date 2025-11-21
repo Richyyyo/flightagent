@@ -46,9 +46,9 @@ export default function Navbar() {
     navigate(`/auth?mode=${mode}`);
   };
 
-  if (isLoading) {
+  /*if (isLoading) {
     return <div className="header">Loading...</div>;
-  }
+  } */
 
   const mobileAuthItems = isAuthenticated ? (
     <>
